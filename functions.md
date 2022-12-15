@@ -1,0 +1,209 @@
+# Functions
+Functions are useful when you want to perform a certain task multiple times. A function accepts input arguments and produces the output by executing valid R commands that are inside the function. In R Programming Language when you are creating a function the function name and the file in which you are creating the function need not be the same and you can have one or more function definitions in a single R file.
+
+**Types of function in R Language**
+- **Built-in Function:** Built function R is `sq()`, `mean()`, `max()`, these function are directly call in the program by users.
+- **User-defined Function:** R language allow us to write our own function.
+
+## Functions in R Language
+Functions are created in R by using the command **function()**. The general structure of the function file is as follows: 
+
+![strusture of function!](/images/functions.png)
+
+*Note:* In the above syntax `f` is the function name, this means that you are creating a function with name `f` which takes certain arguments and executes the following statements.
+
+### Built-in Function in R Programming Language
+Here we will use built-in function like `sum()`, `max()` and `min()`.
+
+```
+# Find sum of numbers 4 to 6.
+print(sum(4:6))
+ 
+# Find max of numbers 4 and 6.
+print(max(4:6))
+ 
+# Find min of numbers 4 and 6.
+print(min(4:6))
+```
+**Output:**
+```
+[1] 15
+[1] 6
+[1] 4
+```
+
+### User-defined Functions in R Programming Language
+R provides built-in functions like `print()`, `cat()`, etc. but we can also create our own functions. These functions are called user-defined functions.
+
+**Example:**  
+```
+# A simple R function to check whether x is even or odd
+ 
+evenOdd = function(x){
+  if(x %% 2 == 0)
+    return("even")
+  else
+    return("odd")
+}
+ 
+print(evenOdd(4))
+print(evenOdd(3))
+```
+
+**Output:** 
+```
+[1] "even"
+[1] "odd"
+```
+
+
+**Single Input Single Output**
+Now create a function in R that will take a single input and gives us a single output. 
+
+
+Following is an example to create a function that calculates the area of a circle which takes in the arguments the radius. So, to create a function, name the function as “`areaOfCircle`” and the arguments that are needed to be passed are the “`radius`” of the circle.  
+
+```
+# A simple R function to calculate area of a circle
+ 
+areaOfCircle = function(radius){
+  area = pi*radius^2
+  return(area)
+}
+ 
+print(areaOfCircle(2))
+```
+**Output:** 
+```
+12.56637
+```
+
+**Multiple Input Multiple Output**
+Now create a function in R Language that will take multiple inputs and gives us multiple outputs using a list. 
+
+The functions in R Language takes multiple input objects but returned only one object as output, this is, however, not a limitation because you can create lists of all the outputs which you want to create and once the list is created you can access them into the elements of the list and get the answers which you want.
+
+Let us consider this example to create a function “Rectangle” which takes “length” and “width” of the rectangle and returns area and perimeter of that rectangle. Since R Language can return only one object. Hence, create one object which is a list that contains “area” and “perimeter” and return the list. 
+
+```
+# A simple R function to calculate area and perimeter of a rectangle
+ 
+Rectangle = function(length, width){
+  area = length * width
+  perimeter = 2 * (length + width)
+   
+  # create an object called result which is a list of area and perimeter
+  result = list("Area" = area, "Perimeter" = perimeter)
+  return(result)
+}
+ 
+resultList = Rectangle(2, 3)
+print(resultList["Area"])
+print(resultList["Perimeter"])
+```
+
+**Output:** 
+```
+$Area
+[1] 6
+
+$Perimeter
+[1] 10
+```
+
+**Inline Functions in R Programming Language**
+Sometimes creating an R script file, loading it, executing it is a lot of work when you want to just create a very small function. So, what we can do in this kind of situation is an `inline` function.
+
+To create an inline function you have to use the function command with the argument `x` and then the expression of the function. 
+
+```
+# A simple R program to demonstrate the inline function
+ 
+f = function(x) x^2*4+x/3
+ 
+print(f(4))
+print(f(-2))
+print(0)
+```
+**Output:** 
+```
+65.33333
+15.33333
+0
+```
+
+**Passing arguments to Functions in R Programming Language**
+There are several ways you can pass the arguments to the function: 
+
+- **Case 1:** Generally in R, the arguments are passed to the function in the same order as in the function definition.
+- **Case 2:** If you do not want to follow any order what you can do is you can pass the arguments using the names of the arguments in any order.
+- **Case 3:** If the arguments are not passed the default values are used to execute the function.
+
+
+Now, let us see the examples for each of these cases in the following R code:
+```
+# A simple R program to demonstrate passing arguments to a function
+ 
+Rectangle = function(length=5, width=4){
+  area = length * width
+  return(area)
+}
+ 
+# Case 1:
+print(Rectangle(2, 3))
+ 
+# Case 2:
+print(Rectangle(width = 8, length = 4))
+ 
+# Case 3:
+print(Rectangle())
+```
+
+**Output:** 
+```
+6
+32
+20
+```
+
+**Lazy evaluations of Functions in R Programming Language**
+In R the functions are executed in a lazy fashion. When we say lazy what it means is if some arguments are missing the function is still executed as long as the execution does not involve those arguments.
+
+**Example:** 
+
+In the function “Cylinder” given below. There are defined three-argument “`diameter`”, “`length`” and “`radius`” in the function and the `volume` calculation does not involve this argument “`radius`” in this calculation. Now, when you pass this argument “`diameter`” and “`length`” even though you are not passing this “`radius`” the function will still execute because this `radius is not used in the calculations inside the function`. 
+Let’s illustrate this in an R code given below:
+
+```
+# A simple R program to demonstrate Lazy evaluations of functions
+ 
+Cylinder = function(diameter, length radius ){
+  volume = pi*diameter^2*length/4
+  return(volume)
+}
+ 
+# This'll execute because this radius is not used in the calculations inside the function.
+print(Cylinder(5, 10))
+```
+**Output:** 
+```
+196.3495
+```
+
+If you do not pass the argument and then use it in the definition of the function it will throw an error that this “`radius`” is not passed and it is being used in the function definition.
+```
+# A simple R program to demonstrate Lazy evaluations of functions
+ 
+Cylinder = function(diameter, length, radius ){
+  volume = pi*diameter^2*length/4
+  print(radius)
+  return(volume)
+}
+ 
+# This'll throw an error
+print(Cylinder(5, 10))
+```
+**Output:** 
+```
+Error in print(radius) : argument "radius" is missing, with no default 
+```
