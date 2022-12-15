@@ -338,3 +338,26 @@ fun(rnorm(50), mean)
 [1] 55
 [1] 0.2153183
 ```
+
+# Types of Functions in R Programming
+A function is a set of statements orchestrated together to perform a specific operation. A function is an object so the interpreter is able to pass control to the function, along with arguments that may be necessary for the function to accomplish the actions. The function in turn performs the task and returns control to the interpreter as well as any return values that may be stored in other objects.
+ 
+## How to Define a Function?
+In R programming, a function can be defined using the keyword function. The syntax to define a function in R is as follows:  
+**Syntax:**
+```
+function_name = function(arg_1, arg_2, …)
+{ 
+ Function body 
+} 
+```
+
+The various components/parts of a function are: 
+ 
+
+- **Function name:** It is the actual name of the function. It is stored in R environment as an object with this name.
+- **Arguments:** An argument is a placeholder. Whenever a function is invoked, a value if passed to the argument.They are optional; that is, a function may contain no arguments. Also arguments can have default values.
+- **Function Body:** It contains all the set of statements that defines what actually the function does.
+- **Return Values:** It is the values that function returns after the successful execution of the tasks.
+In more general,it is the last expression in the function body to be evaluated.
+
