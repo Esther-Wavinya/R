@@ -207,3 +207,134 @@ print(Cylinder(5, 10))
 ```
 Error in print(radius) : argument "radius" is missing, with no default 
 ```
+
+
+# Function Arguments in R Programming
+
+Arguments are the parameters provided to a function to perform operations in a programming language. In R programming, we can use as many arguments as we want and are separated by a comma. There is no limit on the number of arguments in a function in R. In this article, we’ll discuss different ways of adding arguments in a function in R programming.
+
+## Adding Arguments in R
+We can pass an argument to a function while calling the function by simply giving the value as an argument inside the parenthesis. Below is an implementation of a function with a single argument.
+
+```
+# Function definition to check n is divisible by 5 or not
+divisbleBy5 <- function(n){
+  if(n %% 5 == 0)
+  {
+	return("number is divisible by 5")
+  }
+  else
+  {
+	return("number is not divisible by 5")
+  }
+}
+
+# Function call
+divisbleBy5(100)
+divisbleBy5(4)
+divisbleBy5(20.0)
+```
+**Output**
+```
+[1] "number is divisible by 5"
+[1] "number is not divisible by 5"
+[1] "number is divisible by 5"
+```
+
+**Adding Multiple Arguments in R**
+A function in R programming can have multiple arguments too. Below is an implementation of a function with multiple arguments.
+
+**Example:**
+```
+# Function definition to check a is divisible by b or not
+divisible <- function(a, b){
+  if(a %% b == 0)
+  {
+    return(paste(a, "is divisible by", b))
+  }
+  else 
+  {
+    return(paste(a, "is not divisible by", b))
+  }
+}
+  
+# Function call
+divisible(7, 3)
+divisible(36, 6)
+divisible(9, 2)
+```
+
+**Output:**
+```
+[1] "7 is not divisible by 3"
+[1] "36 is divisible by 6"
+[1] "9 is not divisible by 2"
+```
+
+**Adding Default Value in R**
+Default value in a function is a value that is not required to specify each time the function is called. If the value is passed by the user, then the user-defined value is used by the function otherwise, the default value is used. Below is an implementation of function with default value.
+
+**Example:**
+```
+# Function definition to check a is divisible by b or not. If b is not provided in function call, then divisibility of a is checked with 3 as default
+divisible <- function(a, b = 3){
+  if(a %% b == 0)
+  {
+    return(paste(a, "is divisible by", b))
+  } 
+  else
+  {
+    return(paste(a, "is not divisible by", b))
+  }
+}
+  
+# Function call
+divisible(10, 5)
+divisible(12)
+```
+**Output:**
+```
+[1] "10 is divisible by 5"
+[1] "12 is divisible by 3"
+```
+
+**Dots Argument**
+Dots argument (`…`) is also known as ellipsis which allows the function to take an undefined number of arguments. It allows the function to take an arbitrary number of arguments. Below is an example of a function with an arbitrary number of arguments.
+
+**Example:**
+```
+# Function definition of dots operator
+fun <- function(n, ...){
+  l <- list(n, ...)
+  paste(l, collapse = " ")
+}
+  
+# Function call
+fun(5, 1L,  6i, TRUE, "GeeksForGeeks", "Dots operator")
+```
+**Output:**
+```
+[1] "5 1 0+6i TRUE GeeksForGeeks Dots operator"
+```
+
+**Function as Argument**
+In R programming, functions can be passed to another functions as arguments. Below is an implementation of function as an argument.
+
+**Example:**
+```
+# Function definition. Function is passed as argument
+fun <- function(x, fun2){
+  return(fun2(x))
+}
+  
+# sum is built-in function
+fun(c(1:10), sum)
+  
+# mean is built-in function
+fun(rnorm(50), mean)
+```
+**Output:**
+```
+[1] 55
+[1] 0.2153183
+```
