@@ -629,8 +629,289 @@ sum_series(series)
 - In its essence, recursion is the process of breaking down a problem into many smaller problems, these smaller problems are further broken down until the problem left is trivial. The solution is then built back up piece by piece.
 
 
+# Conversion Functions in R Programming
+Sometimes to analyze data using R, we need to convert data into another data type. As we know R has the following data types Numeric, Integer, Logical, Character, etc. similarly R has various conversion functions that are used to convert the data type.
+
+In R, Conversion Function are of two types:
+
+- Conversion Functions for Data Types
+- Conversion Functions for Data Structures
+
+## Conversion Functions For Data Types
+There are various conversion functions available for Data Types. These are:
+
+- **as.numeric()**
+Decimal value known numeric values in R. It is the default data type for real numbers in R. In R `as.numeric()` converts any values into numeric values.
+**Syntax:**
+```
+// Conversion into numeric data type
+as.numeric(x)
+```
+**Example:**
+```
+# A simple R program to convert character data type into numeric data type
+x<-c('1', '2', '3')
+  
+# Print x
+print(x)
+  
+# Print the type of x
+print(typeof(x))
+  
+# Conversion into numeric data type
+y<-as.numeric(x)
+  
+# print the type of y
+print(typeof(y))
+```
+**Output:**
+```
+Output:
+
+[1] "1" "2" "3"
+[1] "character"
+[1] "double"
+```
+
+- **as.integer()**
+In R, Integer data type is a collection of all integers. In order to create an integer variable in R and convert any data type in to Integer we use **as.integer()** function.
+
+**Syntax:**
+```
+// Conversion of any data type into Integer data type
+as.integer(x)
+```
+**Example:**
+```
+# A simple R program to convert numeric data type into integer data type
+x<-c(1.3, 5.6, 55.6)
+  
+# Print x
+print(x)
+  
+# Print type of x
+print(typeof(x))
+  
+# Conversion into integer data type
+y<-as.integer(x)
+  
+# Print y
+print(y)
+  
+# Print type of y
+print(typeof(y))
+```
+
+**Output:**
+```
+[1]  1.3  5.6 55.6
+[1] "double"
+[1]  1  5 55
+[1] "integer"
+```
+
+- **as.character()**
+In R, character data is used to store `character value and string`. To create an character variable in R, we invoke the **as.character()** function and also if we want to convert any data type in to character we use **as.character()** function.
+
+**Syntax:**
+```
+// Conversion of any data type into character data type
+as.character(x)
+```
+
+**Example:**
+```
+x<-c(1.3, 5.6, 55.6)
+  
+# Print x
+print(x)
+  
+# Print type of x
+print(typeof(x))
+  
+# Conversion into character data type
+y<-as.character(x)
+  
+# Print y
+print(y)
+  
+# Print type of y
+print(typeof(y))
+```
+
+**Output:**
+```
+[1]  1.3  5.6 55.6
+[1] "double"
+[1] "1.3"  "5.6"  "55.6"
+[1] "character"
+```
+- **as.logical()**
+Logical value is created to compare variables which return either true or false.To compare variables and to convert any value in to true or false, R uses **as.logical()** function.
+
+**Syntax:**
+```
+// Conversion of any data type into logical data type
+as.logical(x)
+```
+
+**Example:**
+```
+x = 3
+y = 8
+  
+# Conversion in to logical value
+result<-as.logical(x>y)
+  
+# Print result
+print(result)
+```
+
+**Output:**
+```
+[1] FALSE
+```
+
+- **as.date()**
+In R **as.date()** function is used to convert string into date format.
+
+**Syntax:**
+```
+// Print string into date format
+as.date(variable, "%m/%d/%y")
+```
+
+**Example:**
+```
+dates <- c("02/27/92", "02/27/92", 
+           "01/14/92", "02/28/92", 
+           "02/01/92")
+  
+# Conversion into date format
+result<-as.Date(dates, "%m/%d/%y")
+  
+# Print result
+print(result)
+```
+
+**Output:**
+```
+[1] "1992-02-27" "1992-02-27" "1992-01-14" "1992-02-28" "1992-02-01"
+```
+
+## Conversion Functions For Data Structure
+There are various conversion functions available for Data Structure. These are:
+
+- **as.data.frame()**
+Data Frame is used to store data tables. Which is list of vectors of equal length. In R, sometimes to analyse data we need to convert list of vector into data.frame. So for this R uses **as.data.frame()** function to convert list of vector into data frame.
+
+**Syntax:**
+```
+// Conversion of any data structure into data frame
+as.data.frame(x)
+```
+**Example:**
+```
+x<- list( c('a', 'b', 'c'),
+c('e', 'f', 'g'), c('h', 'i', 'j'))
+  
+# Print x
+print(x)
+  
+# Conversion in to data frame
+y<-as.data.frame(x)
+  
+# Print y
+print(y)
+```
+**Output:**
+```
+[[1]]
+[1] "a" "b" "c"
+
+[[2]]
+[1] "e" "f" "g"
+
+[[3]]
+[1] "h" "i" "j"
+
+  c..a....b....c.. c..e....f....g.. c..h....i....j..
+1                a                e                h
+2                b                f                i
+3                c                g                j
+```
 
 
+- **as.vector()**
+R has a function **as.vector()** which is used to convert a distributed matrix into a non-distributed vector. Vector generates a vector of the given length and mode.
+
+**Syntax:**
+```
+// Conversion of any data structure into vector
+as.vector(x)
+```
+
+**Example:**
+```
+x<-c(a=1, b=2)
+  
+# Print x
+print(x)
+  
+# Conversion into vector
+y<-as.vector(x)
+  
+# Print y
+print(y)
+```
+
+**Output:**
+```
+a b 
+1 2 
+[1] 1 2
+```
+
+- **as.matrix()**
+In R, there is a function **as.matrix()** which is used to convert a data.table into a matrix, optionally using one of the columns in the data.table as the matrix row names.
+
+**Syntax:**
+```
+// Conversion into matrix
+as.matrix(x)
+```
+
+**Example:**
+```
+# Importing library
+library(data.table)
+x <- data.table(A = letters[1:5], X = 1:5, Y = 6:10)
+  
+# Print x
+print(x)
+  
+# Conversion into matrix
+z<-as.matrix(x)
+  
+# Print z
+print(z)
+```
+
+**Output:**
+```
+   A X  Y
+1: a 1  6
+2: b 2  7
+3: c 3  8
+4: d 4  9
+5: e 5 10
+     A   X   Y   
+[1,] "a" "1" " 6"
+[2,] "b" "2" " 7"
+[3,] "c" "3" " 8"
+[4,] "d" "4" " 9"
+[5,] "e" "5" "10"
+```
 
 
 
