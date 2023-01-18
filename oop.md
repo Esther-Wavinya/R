@@ -1132,28 +1132,448 @@ Name is  Arjun
 
 
 
+# R Inheritance
+
+
+**Inheritance** is one of the concept in object oriented programming by which new classes can be derived from existing or base classes helping in re-usability of code. Derived classes can be the same as a base class or can have extended features which creates a hierarchical structure of classes in the programming environment. In this article, we’ll discuss how inheritance is followed out with three different types of classes in R programming.
 
 
 
+## Inheritance in S3 Class
+S3 class in R programming language has no formal and fixed definition. In an S3 object, a list with its class attribute is set to a class name. S3 class objects inherit only methods from its base class.
+
+**Example:**
+```
+# Create a function to create an object of class
+student <- function(n, a, r){
+  value <- list(name = n, age = a, rno = r)
+  attr(value, "class") <- student
+  value
+}
+  
+# Method for generic function print()
+print.student <- function(obj){
+  cat(obj$name, "\n")
+  cat(obj$age, "\n")
+  cat(obj$rno, "\n")
+}
+  
+# Create an object which inherits class student
+s <- list(name = "Utkarsh", age = 21, rno = 96,
+          country = "India")
+  
+# Derive from class student
+class(s) <- c("InternationalStudent", "student")
+  
+cat("The method print.student() is inherited:\n")
+print(s)
+  
+# Overwriting the print method
+print.InternationalStudent <- function(obj){
+cat(obj$name, "is from", obj$country, "\n")
+}
+  
+cat("After overwriting method print.student():\n")
+print(s)
+  
+# Check imheritance
+cat("Does object 's' is inherited by class 'student' ?\n")
+inherits(s, "student")
+```
+
+**Outputt**
+```
+The method print.student() is inherited:
+
+Utkarsh 
+21 
+96 
+
+After overwriting method print.student():
+
+Utkarsh is from India
+
+Check inheritance:
+Does object 's' is inherited by class 'student' ?
+[1] TRUE
+```
+
+
+## Inheritance in S4 Class
+S4 class in R programming have proper definition and derived classes will be able to inherit both attributes and methods from its base class.
+
+**Example:**
+
+```
+# Define S4 class
+setClass("student",
+         slots = list(name = "character", 
+                      age = "numeric", rno = "numeric") 
+)
+   
+# Defining a function to display object details
+setMethod("show", "student",
+          function(obj){
+            cat(obj@name, "\n")
+            cat(obj@age, "\n")
+            cat(obj@rno, "\n")
+          } 
+)
+   
+# Inherit from student
+setClass("InternationalStudent",
+slots = list(country = "character"),
+contains = "student"
+)
+   
+# Rest of the attributes will be inherited from student
+s <- new("InternationalStudent", name = "Utkarsh", 
+         age = 21, rno = 96, country="India")
+show(s)
+```
+
+
+**Output:**
+```
+Utkarsh 
+21 
+96 
+```
+
+## Inheritance in Reference Class
+Inheritance in reference class is almost similar to the S4 class and uses `setRefClass()` function to perform inheritance.
+
+**Example:**
+
+```
+# Define class
+student <- setRefClass("student",
+   fields = list(name = "character",
+                 age = "numeric", rno = "numeric"),
+   methods = list(
+     inc_age <- function(x) {
+       age <<- age + x
+     },
+     dec_age <- function(x) {
+       age <<- age - x
+     }
+   )
+)
+  
+# Inheriting from Reference class
+InternStudent <- setRefClass("InternStudent", 
+   fields = list(country = "character"), 
+   contains = "student",
+   methods = list(
+   dec_age <- function(x) {
+     if((age - x) < 0)  stop("Age cannot be negative")
+     age <<- age - x
+   }
+   ) 
+)
+  
+# Create object
+s <- InternStudent(name = "Utkarsh",
+                   age = 21, rno = 96, country = "India")
+  
+cat("Decrease age by 5\n")
+s$dec_age(5)
+s$age
+  
+cat("Decrease age by 20\n")
+s$dec_age(20) 
+s$age
+```
+
+**Output:**
+```
+[1] 16 
+Error in s$dec_age(20) : Age cannot be negative
+[1] 16
+```
 
 
 
+# Abstraction in R Programming
+People who’ve been using the R language for any period of time have likely grown to be conversant in passing features as arguments to other functions. However, people are a whole lot much less probably to go back functions from their personal custom code. This is simply too horrific because doing so can open up a whole new international of abstraction that may greatly lower the quantity and complexity of the code vital to finish sure styles of duties. Here we offer a few short examples of ways R programmers can make use of lexical closures to encapsulate both records and strategies.
+
+![abstraction in R!](/images/abstraction.png)
+
+## Implementation in R
+To begin with, an easy instance, assume you want a function that provides **add_2()** to its argument. You could probably write something like this:
+
+```
+add_2 <- function(y) { 2 + y }
+```
+
+Which does precisely what you’ll anticipate:
+
+```
+> add_2(1:10)
+[1] 3 4 5 6 7 8 9 10 11 12
+```
+
+Now suppose you need every other feature that rather provides 7 to its argument. What to do could be to write down any other characteristic, much like **add_2**, where the **2** is replaced with a **7**. But this would be grossly inefficient: if within the future you discover that you made a mistake and also you in truth want to multiply the values instead of adding them, you will be pressured to trade the code in places. In this trivial instance, that won’t be plenty of hassle, but for greater complicated projects, duplicating code is a recipe for catastrophe. A higher concept could be to put in writing a characteristic that takes one argument, `x`, that returns every other function which provides its argument, `y`, to `x`. In different words, something like this:
+```
+add_x <- function(x) {
+   function(y) { x + y }
+}
+```
+
+Now, while you name **add_x** with an argument, you may get back a feature that does precisely what you need:
+```
+add_2 <- add_x(2)
+add_7 <- add_x(7)
+```
+
+```
+> add_2(1:10)
+[1] 3 4 5 6 7 8 9 10 11 12
+> add_7(1:10)
+[1] 8 9 10 11 12 13 14 15 16 17
+```
+
+So this doesn’t seem too earth-shattering. But if you look closely at the definition of **add_x**, you may notice something odd: how does the return characteristic realize in which to discover `x` when it’s referred to as at a later point?
+
+It turns out that R is lexically scoped, which means that features deliver with them a connection with the environment within which they were described. In this case, when you call **add_x**, the x argument you offer receives attached to the environment for the return characteristic. In different phrases, on this simple instance, you may think about R as simply changing all instances of the x variable within the feature to be lower back with the value you specify whilst you known as **add_x**. Ok, so this may be a neat trick, however, how this can be used extra productively? For a slightly extra complicated instance, think you’re doing some complex bootstrapping, and, for efficiency, you pre-allocate container vectors to keep the results. This is easy if you have just a single vector of effects—all you need to do is take into account to iterate an index counter whenever you upload an end result to the vector.
+
+```
+for (i in 1:nboot) {
+ bootmeans[i] <- mean(sample(data, length(data), 
+                             replace = TRUE))
+}
+```
+
+```
+> mean(data)
+[1] 0.0196
+> mean(bootmeans)
+[1] 0.0188
+```
+
+But think you need to track several extraordinary statistics, every requiring you to maintain track of a unique index variable. If your bootstrapping ordinary is even a little bit complicated, this could be tedious and vulnerable to blunders. By the use of closures, you may summary away all of this bookkeeping. Here is a constructor function that wraps a pre-allocated container vector:
+
+```
+make_container <- function(n) {
+   x <- numeric(n)
+   i <- 1
+  
+   function(value = NULL) {
+       if (is.null(value)) {
+           return(x)
+       }
+       else {
+           x[i] <<- value
+           i <<- i + 1
+       }  
+   }
+}
+```
+When you call **make_container** with an issue, it pre-allocates a numeric vector of the specified period, `n`, and returns a feature that permits you to feature statistics to that vector while not having to fear approximately keeping the music of an index. If the argument to that return feature is NULL, the entire vector is the lower back.
+
+```
+bootmeans <- make_container(nboot)
+  
+for (i in 1:nboot)
+bootmeans(mean(sample(data, length(data), 
+                      replace = TRUE)))
+
+```
+
+```
+> mean(data)
+[1] 0.0196
+> mean(bootmeans())
+[1] 0.0207
+```
+
+Here **make_container** is tremendously easy, but it may be as complicated as you need. For example, you could want to have the constructor function carry out some expensive calculations which you could instead no longer do on every occasion the character is known as. In reality, that is what I even have completed within the **boolean3** package deal to decrease the range of calculations performed at each new release of the optimization habitual.
 
 
 
+# Looping over Objects in R Programming
+One of the biggest issues with the `for` loop is its *memory consumption* and its *slowness in executing a repetitive task*. 
+
+And when it comes to *dealing with large data set* and *iterating over it*, `for` loop is not advised.
+
+R provides many alternatives to be applied to vectors for looping operations that are pretty useful when working interactively on a command line. Here, we deal with **apply()** function and its variants:
+
+- apply()
+- lapply()
+- sapply()
+- tapply()
+- mapply()
+
+Let us see what each of these functions does.
+|Looping Function   |   Operation  |
+|------------------  |----------------|
+|**apply()**         | Applies a function over the margins of an array or matrix|
+|**lapply**       | Apply a function over a list or a vector|
+| **sapply**     | Same as lapply() but with simplified results|
+| **tapply**    | Apply a function over a ragged array |
+|**mapply**   | Apply a function over a ragged array |
+
+- **apply()**: This function applies a given function over the margins of a given array.
+
+```
+apply(array, margins, function, …)
+
+array = list of elements
+margins = dimension of the array along which the function needs to be applied
+function = the operation which you want to perform
+```
+**Example:**
+```
+# R program to illustrate apply() function 
+  
+# Creating a matrix 
+A = matrix(1:9, 3, 3) 
+print(A) 
+  
+# Applying apply() over row of matrix.here margin 1 is for row  
+r = apply(A, 1, sum) 
+print(r) 
+  
+# Applying apply() over column of matrix. here margin 2 is for column 
+c = apply(A, 2, sum) 
+print(c) 
+```
+
+**Output:**
+```
+[, 1] [, 2] [, 3]
+[1, ]    1    4    7
+[2, ]    2    5    8
+[3, ]    3    6    9
+
+[1] 12 15 18
+[1]  6 15 24
+```
+
+- **lapply():** This function is used to apply a function over a list. It always returns a list of the same length as the input list.
+```
+lapply(list, function, …)
+
+list = Created list
+function = the operation which you want to perform
+```
+
+**Example:**
+```
+# R program to illustrate lapply() function 
+  
+# Creating a matrix 
+A = matrix(1:9, 3, 3) 
+  
+# Creating another matrix 
+B = matrix(10:18, 3, 3)  
+  
+# Creating a list 
+myList = list(A, B) 
+  
+# applying lapply() 
+determinant = lapply(myList, det) 
+print(determinant) 
+```
+
+**Output:**
+```
+[[1]]
+[1] 0
+
+[[2]]
+[1] 5.329071e-15
+```
+
+- **sapply():** This function is used to simplify the result of *lapply()*, if possible. Unlike *lapply()*, the result is not always a list. The output varies in the following ways:-
+- If output is a list containing elements having length 1, then a vector is returned.
+- If output is a list where all the elements are vectors of same length(>1), then a matrix is returned.
+- If output contains elements which cannot be simplified or elements of different types, a list is returned.
+```
+sapply(list, function, …)
+list = Created list
+function = the operation which you want to perform
+```
+**Example:**
+```
+# R program to illustrate sapply() function 
+  
+# Creating a list 
+A = list(a = 1:5, b = 6:10) 
+  
+# applying sapply() 
+means = sapply(A, mean) 
+print(means) 
+```
+
+**Output**
+```
+a b
+3 8
+```
+
+A vector is returned since the output had a list with elements of length 1.
+
+- **tapply()**: This function is used to apply a function over subset of vectors given by a combination of factors.
+```
+tapply(vector, factor, function, …)
+
+vector = Created vector
+factor = Created factor
+function = the operation which you want to perform
+```
+**Example:**
+```
+# R program to illustrate tapply() function 
+  
+# Creating a factor 
+Id = c(1, 1, 1, 1, 2, 2, 2, 3, 3) 
+  
+# Creating a vector 
+val = c(1, 2, 3, 4, 5, 6, 7, 8, 9) 
+  
+# applying tapply() 
+result = tapply(val, Id, sum) 
+print(result) 
+```
+
+**Output:**
+```
+1  2  3 
+10 18 17 
+```
+How does the above code work?
+![tapply!](/images/sapply.png)
 
 
+- **mapply():** It’s a multivariate version of lapply(). This function can be applied over several list simultaneously.
+```
+mapply(function, list1, list2, …)
 
+function = the operation which you want to perform
+```
 
+list1, list2 = Created lists
 
+**Example:**
+```
+# R program to illustrate mapply() function 
+  
+# Creating a list 
+A = list(c(1, 2, 3, 4)) 
+  
+# Creating another list 
+B = list(c(2, 5, 1, 6)) 
+  
+# Applying mapply() 
+result = mapply(sum, A, B) 
+print(result) 
+```
 
-
-
-
-
-
-
-
+**Output:**
+```
+[1] 24
+```
 
 
 
