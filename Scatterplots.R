@@ -1,5 +1,4 @@
-# File:   Scatterplots.R
-# Course: R: An Introduction (with RStudio)
+
 
 # LOAD DATASETS PACKAGES ###################################
 
