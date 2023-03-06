@@ -1,5 +1,4 @@
-# File:   RStudio.R
-# Course: R: An Introduction (with RStudio)
+
 
 # LOAD DATA ################################################
 
@@ -31,6 +30,7 @@ summary(iris)      # Summary statistics for iris data
 
 
 plot(iris)         # Scatterplot matrix for iris data
+
 
 
 # CLEAN UP #################################################

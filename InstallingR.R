@@ -1,5 +1,4 @@
-# File:   InstallingR.R
-# Course: R: An Introduction (with RStudio)
+
 
 # LOAD DATA ################################################
 
