@@ -1,5 +1,4 @@
-# File:   Describe.R
-# Course: R: An Introduction (with RStudio)
+
 
 # INSTALL AND LOAD PACKAGES ################################
 
