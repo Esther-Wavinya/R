@@ -122,6 +122,6 @@ Error in my_apples + my_oranges : non-numeric argument to binary operator
 ```
 
 
-After Variables, We are going to learn about [Vectors](https://github.com/Esther-Wavinya/R/blob/master/vector.md)
+After Variables, We are going to learn about [Different Data types](https://github.com/Esther-Wavinya/R/blob/master/datatypes.md)
 
 
