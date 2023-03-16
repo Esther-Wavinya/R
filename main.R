@@ -151,3 +151,17 @@ selection_vector
 poker_vector[selection_vector]
 poker_winning_days <- poker_vector[selection_vector]
 poker_winning_days
+
+matrix(1:9, byrow = TRUE, nrow = 3)
+
+matrix(1:9, byrow = FALSE, nrow = 3)
+
+
+new_hope <- c(460.998, 314.4)
+empire_strikes <- c(290.475, 247.900)
+return_jedi <- c(309.306, 165.8)
+box_office <- c(new_hope, empire_strikes, return_jedi)
+stars_wars_matrix <- matrix(box_office, nrow = 3, byrow = TRUE)
+stars_wars_matrix
+
+
