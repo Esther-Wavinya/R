@@ -31,11 +31,11 @@ my_logical <- FALSE
 
 
 ## What's that data type?
-Do you remember that when you added `5 + "six"`, you got an error due to a mismatch in data types? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this with the `class()` function, as the code in the editor shows.
+When you add `5 + "six"`, you get an error due to a mismatch in data types? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this with the `class()` function, as the code below shows.
 
 ## Instructions
 
-Complete the code in the editor and also print out the classes of `my_character` and `my_logical`.
+Complete the code and also print out the classes of `my_character` and `my_logical`.
 
 ```
 # Declare variables of different types
@@ -52,4 +52,18 @@ class(my_character)
 # Check class of my_logical
 class(my_logical)
 ```
+
+## Answer
+```
+# Check class of my_numeric
+class(my_numeric)
+[1] "numeric"
+# Check class of my_character
+class(my_character)
+[1] "character"
+# Check class of my_logical
+class(my_logical)
+[1] "logical"
+```
+
 
