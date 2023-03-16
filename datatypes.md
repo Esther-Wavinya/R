@@ -55,15 +55,16 @@ class(my_logical)
 
 ## Answer
 ```
-# Check class of my_numeric
-class(my_numeric)
+> my_numeric <- 42
+> my_character <- "universe"
+> my_logical = FALSE
+> class(my_numeric)
 [1] "numeric"
-# Check class of my_character
-class(my_character)
+> class(my_character)
 [1] "character"
-# Check class of my_logical
-class(my_logical)
+> class(my_logical)
 [1] "logical"
 ```
 
+After Data types, We are going to learn about [Vectors](https://github.com/Esther-Wavinya/R/blob/master/vector.md)
 
