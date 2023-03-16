@@ -12,7 +12,7 @@ my_var <- 4
 ```
 
 # Instructions
-Over to you: complete the code in the editor such that it assigns the `value 42` to the `variable x` in the editor. Submit the answer. Notice that when you ask `R` to `print x`, the value `42` appears.
+Over to you: complete the code such that it assigns the `value 42` to the `variable x`. Submit the answer. Notice that when you ask `R` to `print x`, the value `42` appears.
 
 ```
 # Assign the value 42 to x
@@ -22,10 +22,18 @@ x <- 42
 x
 ```
 
-Suppose you have a fruit basket with `five` apples. As a data analyst in training, you want to store the number of apples in a variable with the name `my_apples`.
+## Answer
+```
+> X <- 42
+> X
+[1] 42
+```
+
+
+Suppose you have a fruit basket with `five` apples. As a data analyst, you want to store the number of apples in a variable with the name `my_apples`.
 
 # Instructions
-Type the following code in the editor: `my_apples <- 5`. This will assign the value `5 to my_apples`.
+Type the following code in an editor: `my_apples <- 5`. This will assign the value `5 to my_apples`.
 
 Type: `my_apples` below the second comment. This will print out the `value of my_apples`.
 
@@ -64,10 +72,22 @@ my_apples + my_oranges
 my_fruit <- my_apples +  my_oranges
 ```
 
+## Answer
+```
+> my_apples <- 5
+> my_oranges <- 6
+> my_apples + my_oranges
+[1] 11
+> my_fruit = my_apples + my_oranges
+> my_fruit
+[1] 11
+```
+
+
 # Apples and oranges
 Common knowledge tells you not to add apples and oranges. But hey, that is what you just did, no :-)? The `my_apples` and `my_oranges` variables both contained `a number` in the previous exercise. The `+` operator works with `numeric variables in R`. 
 
-If you really tried to add `"apples"` and `"oranges"`, and assigned `a text value` to the `variable my_oranges` (see the editor), you would be trying to assign the `addition` of a `numeric` and `a character variable` to the `variable my_fruit`. 
+If you really tried to add `"apples"` and `"oranges"`, and assigned `a text value` to the `variable my_oranges`, you would be trying to assign the `addition` of a `numeric` and `a character variable` to the `variable my_fruit`. 
 
 `This is not possible`.
 
@@ -88,3 +108,20 @@ my_fruit <- my_apples + my_oranges
 my_fruit
 `Error: non-numeric argument to binary operator`
 ```
+
+## Answer
+```
+> my_apples <- 5
+> my_oranges <- "six"
+> my_apples + my_oranges
+Error in my_apples + my_oranges : non-numeric argument to binary operator
+> my_fruit = my_apples + my_oranges
+Error in my_apples + my_oranges : non-numeric argument to binary operator
+> my_fruit
+[1] 11
+```
+
+
+After Variables, We are going to learn about [Different Data types](https://github.com/Esther-Wavinya/R/blob/master/datatypes.md)
+
+
